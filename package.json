@@ -1,0 +1,29 @@
+{
+  "name": "twitter-api-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "http-proxy": "^1.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asannou/twitter-api-proxy.git"
+  },
+  "keywords": [
+    "twitter",
+    "api",
+    "proxy",
+    "nodejs"
+  ],
+  "author": "asannou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asannou/twitter-api-proxy/issues"
+  },
+  "homepage": "https://github.com/asannou/twitter-api-proxy#readme"
+}
