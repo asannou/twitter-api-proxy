@@ -1,0 +1,11 @@
+{
+  "authorization": "Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA",
+  "consumers": {
+    "5CAYV1DR5uwhVRJDBrepw": {
+      "oauth_callback": "https://twitterrific.com/callback"
+    },
+    "VKIZ5AMRF52d4MeWWymdX2RRY": {
+      "oauth_callback": "oob"
+    }
+  }
+}

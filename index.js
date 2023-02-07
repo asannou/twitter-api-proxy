@@ -5,16 +5,7 @@ const fs = require('fs');
 const https = require('https');
 const httpProxy = require('http-proxy');
 
-const AUTHORIZATION = 'Bearer AAAAAAAAAAAAAAAAAAAAANRILgAAAAAAnNwIzUejRCOuH5E6I8xnZz4puTs%3D1Zv7ttfk8LF81IUq16cHjhLTvJu4FA33AGWWjCpTnA';
-
-const CONSUMERS = {
-  '5CAYV1DR5uwhVRJDBrepw': {
-    oauth_callback: 'https://twitterrific.com/callback',
-  },
-  'VKIZ5AMRF52d4MeWWymdX2RRY': {
-    oauth_callback: 'oob',
-  },
-};
+const config = JSON.parse(fs.readFileSync('./config.json'));
 
 function isToken(oauth_token) {
   return oauth_token.match(/^[-_0-9A-Za-z]+$/);
@@ -54,7 +45,7 @@ function httpsGet(url, options) {
 function createHeaders(token) {
   const { cookies: { ct0, auth_token }, user_agent } = token;
   return {
-    authorization: AUTHORIZATION,
+    authorization: config.authorization,
     cookie: `ct0=${ct0}; auth_token=${auth_token}`,
     'x-csrf-token': ct0,
     'user-agent': user_agent,
@@ -96,7 +87,7 @@ function parseCookie(string = '') {
 }
 
 function createRequestToken(oauth_consumer_key) {
-  const consumer = CONSUMERS[oauth_consumer_key];
+  const consumer = config.consumers[oauth_consumer_key];
   if (!consumer) return;
   const { oauth_callback } = consumer;
   const oauth_token = createToken();
