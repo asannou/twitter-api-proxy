@@ -148,8 +148,19 @@ function respondHtml(res, data) {
   res.end(data);
 }
 
+function respondJson(res, obj) {
+  const json = JSON.stringify(obj);
+  res.writeHead(200, { 'content-type': 'application/json' });
+  res.end(json);
+}
+
 function respondLocation(res, location) {
   res.writeHead(302, { location });
+  res.end();
+}
+
+function respondBadRequest(res) {
+  res.writeHead(400);
   res.end();
 }
 
@@ -239,6 +250,8 @@ proxy.on('proxyReq', (proxyReq, req, res, options) => {
   }
 });
 
+const defaultProxy = httpProxy.createProxyServer({ secure: true });
+
 const options = {
   key: fs.readFileSync('private.key'),
   cert: fs.readFileSync('api.twitter.com.crt'),
@@ -255,17 +268,23 @@ const server = https.createServer(options, async (req, res) => {
         try {
           await handler(headers, url, res);
         } catch (e) {
-          res.writeHead(400);
-          res.end();
+          respondBadRequest(res);
         }
       } else {
         proxy.web(req, res);
       }
       break;
     }
+    case 'twitterrific.com': {
+      if (url.pathname === '/app/configuration.json') {
+        respondJson(res, { version: 0 });
+      } else {
+        proxy.web(req, res, { target: url.origin });
+      }
+      break;
+    }
     default: {
-      res.writeHead(400);
-      res.end();
+      respondBadRequest(res);
     }
   }
 });
