@@ -279,7 +279,7 @@ const server = https.createServer(options, async (req, res) => {
       if (url.pathname === '/app/configuration.json') {
         respondJson(res, { version: 0 });
       } else {
-        proxy.web(req, res, { target: url.origin });
+        defaultProxy.web(req, res, { target: url.origin });
       }
       break;
     }
